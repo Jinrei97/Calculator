@@ -1,4 +1,4 @@
-const NUMBERS = [1,2,3,4,5,6,7,8,9,0];
+const NUMBERS = [1,2,3,4,5,6,7,8,9,0, "."];
 const OPERATORS = ["+", "-", "*", "/"];
 const SPECIAL = ["=", "CA"];
 let display_value = 0;
@@ -51,16 +51,17 @@ function makeButtons(NUMBERS, OPERATORS) {
     SPECIAL.forEach(special => {
         switch (special) {
             case "=": {
-                document.querySelector("#id15").addEventListener("click", (e) => {
+                document.querySelector("#id16").addEventListener("click", (e) => {
                 let area = document.querySelector(".display");
                 let regex = new RegExp("([0-9\\.]+)([\\+\\-\\*\\/])([0-9\\.]+)")
                 let values = display_value.match(regex).slice(1); // [a, operator, b]
+                console.log(values);
                 area.textContent = roundDecimals(operate(values[0], values[2], values[1]));
                 display_value = area.textContent;
             });
             }
             case "CA": {
-                document.querySelector("#id16").addEventListener("click", (e) => {
+                document.querySelector("#id17").addEventListener("click", (e) => {
                     let area = document.querySelector(".display");
                     area.textContent = "";
                     display_value = area.textContent;
@@ -87,7 +88,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a/b;
+    return (b === 0) ? "Error" : a/b;
 }
 
 function operate(a, b, operator) {
