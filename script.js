@@ -9,6 +9,12 @@ function showNumber(e) {
     display_value = area.textContent;
 }
 
+function isDecimal(number){
+    stringNumber = String(number);
+    let regex = new RegExp(".[0-9]+");
+    return (stringNumber.match(regex) !== null); 
+}
+
 function roundDecimals(number) {
     stringNumber = String(number);
     let regex = new RegExp(".[0-9]+");
@@ -47,9 +53,8 @@ function makeButtons(NUMBERS, OPERATORS) {
             case "=": {
                 document.querySelector("#id15").addEventListener("click", (e) => {
                 let area = document.querySelector(".display");
-                let regex = new RegExp("([0-9]+)(.)([0-9]+)")
+                let regex = new RegExp("([0-9\\.]+)([\\+\\-\\*\\/])([0-9\\.]+)")
                 let values = display_value.match(regex).slice(1); // [a, operator, b]
-                console.log(values);
                 area.textContent = roundDecimals(operate(values[0], values[2], values[1]));
                 display_value = area.textContent;
             });
