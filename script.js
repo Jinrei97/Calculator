@@ -9,6 +9,16 @@ function showNumber(e) {
     display_value = area.textContent;
 }
 
+function roundDecimals(number) {
+    stringNumber = String(number);
+    let regex = new RegExp(".[0-9]+");
+    if (stringNumber.match(regex) !== null) {
+        return Math.round(number * 100) / 100;
+    } else {
+        return number;
+    }
+}
+
 function makeButtons(NUMBERS, OPERATORS) {
     const numbers_div = document.querySelector(".numbers");
     const operators_div = document.querySelector(".operators");
@@ -39,7 +49,8 @@ function makeButtons(NUMBERS, OPERATORS) {
                 let area = document.querySelector(".display");
                 let regex = new RegExp("([0-9]+)(.)([0-9]+)")
                 let values = display_value.match(regex).slice(1); // [a, operator, b]
-                area.textContent = operate(values[0], values[2], values[1]);
+                console.log(values);
+                area.textContent = roundDecimals(operate(values[0], values[2], values[1]));
                 display_value = area.textContent;
             });
             }
@@ -75,6 +86,8 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
+    a = Number(a);
+    b = Number(b);
     switch (operator) {
         case '+':{return add(a, b);}
         case '-':{return subtract(a, b);}
