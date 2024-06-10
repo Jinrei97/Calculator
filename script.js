@@ -1,6 +1,6 @@
-const NUMBERS = [1,2,3,4,5,6,7,8,9,0, "."];
+const NUMBERS = [1,2,3,4,5,6,7,8,9,0];
 const OPERATORS = ["+", "-", "*", "/"];
-const SPECIAL = ["=", "CA"];
+const SPECIAL = [".", "=", "CA"];
 let display_value = 0;
 
 function showNumber(e) {
@@ -65,6 +65,17 @@ function makeButtons(NUMBERS, OPERATORS) {
                     let area = document.querySelector(".display");
                     area.textContent = "";
                     display_value = area.textContent;
+                });
+                break;
+            }
+            case ".": {
+                document.querySelector("#id15").addEventListener("click", (e) => {
+                    let area = document.querySelector(".display");
+                    let numbers = display_value.split(RegExp("[\\+\\-\\*\\/]"));
+                    if (numbers[numbers.length - 1].indexOf(".") === -1) {
+                        area.textContent = area.textContent + e.target.textContent;
+                        display_value = area.textContent;
+                    }
                 });
                 break;
             }
