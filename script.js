@@ -13,35 +13,25 @@ function makeButtons(NUMBERS, OPERATORS) {
     const numbers_div = document.querySelector(".numbers");
     const operators_div = document.querySelector(".operators");
     let progressive_id = 1;
+
+    function makeGroup(arr, classe, clickEvent, div) {
+        arr.forEach(element => {
+                let button = document.createElement("button");
+                button.classList.toggle(classe);
+                button.textContent = element;
+                button.id = "id" + progressive_id;
+                if (clickEvent) {
+                    button.addEventListener("click", e => {clickEvent(e)});
+                }
+                div.appendChild(button);
+                progressive_id += 1;
+            });
+    }
     
-    NUMBERS.forEach(number => {
-        let button = document.createElement("button");
-        button.classList.toggle("number");
-        button.textContent = number;
-        button.id = "id" + progressive_id;
-        button.addEventListener("click", e => {showNumber(e)});
-        numbers_div.appendChild(button);
-        progressive_id += 1;
-    });
+    makeGroup(NUMBERS, "number", showNumber, numbers_div);
+    makeGroup(OPERATORS, "operator", showNumber, operators_div);
+    makeGroup(SPECIAL, "operator", null, operators_div);
 
-    OPERATORS.forEach(operator => {
-        let button = document.createElement("button");
-        button.classList.toggle("operator");
-        button.textContent = operator;
-        button.id = "id" + progressive_id;
-        button.addEventListener("click", e => {showNumber(e)});
-        operators_div.appendChild(button);
-        progressive_id += 1;
-    });
-
-    SPECIAL.forEach(special => {
-        let button = document.createElement("button");
-        button.classList.toggle("operator");
-        button.textContent = special;
-        button.id = "id" + progressive_id;
-        operators_div.appendChild(button);
-        progressive_id += 1;
-    });
     SPECIAL.forEach(special => {
         switch (special) {
             case "=": {
@@ -64,6 +54,7 @@ function makeButtons(NUMBERS, OPERATORS) {
         }
     });
 }
+
 makeButtons(NUMBERS, OPERATORS);
 
 
