@@ -137,19 +137,11 @@ area.addEventListener("keyup", (e) => {
         display_value = area.value;
         console.log(display_value);
     }
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 631f9f5 (Ora "." equivale a premere il relativo pulsante.)
 });
 
 area.addEventListener("keydown", (e) => {
     if (e.key === ".") {
         e.preventDefault();
     }
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> 631f9f5 (Ora "." equivale a premere il relativo pulsante.)
