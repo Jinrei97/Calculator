@@ -130,12 +130,18 @@ area.addEventListener("keyup", (e) => {
         break;
     }
     case ".": {
-        //area.value = area.value.slice(0, -1);
-        e.preventDefault();
         document.querySelector("#id15").click();
+        break;
     }
     default: {
         display_value = area.value;
         console.log(display_value);
-    }};
+    }
+};
 });
+
+area.addEventListener("keydown", (e) => {
+    if (e.key === ".") {
+        e.preventDefault();
+    }
+})
