@@ -25,6 +25,8 @@ function roundDecimals(number) {
     }
 }
 
+
+
 function makeButtons(NUMBERS, OPERATORS) {
     const numbers_div = document.querySelector(".numbers");
     const operators_div = document.querySelector(".operators");
@@ -122,13 +124,18 @@ function operate(a, b, operator) {
 // keyboard
 let area = document.querySelector(".display");
 area.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") {
+    switch (e.key) {
+    case "Enter": {
         document.querySelector("#id16").click();
-    } else if (e.key === "backspace") {
-        display_value = area.value;
-        console.log(display_value);
-    } else {
-        display_value = area.value;
-        console.log(display_value);
+        break;
     }
+    case ".": {
+        //area.value = area.value.slice(0, -1);
+        e.preventDefault();
+        document.querySelector("#id15").click();
+    }
+    default: {
+        display_value = area.value;
+        console.log(display_value);
+    }};
 });
