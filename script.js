@@ -1,12 +1,12 @@
 const NUMBERS = [1,2,3,4,5,6,7,8,9,0];
 const OPERATORS = ["+", "-", "*", "/"];
-const SPECIAL = [".", "=", "CA"];
-let display_value = 0;
+const SPECIAL = [".", "=", "CA", "Back"];
+let display_value = "";
 
 function showNumber(e) {
     let area = document.querySelector(".display");
-    area.textContent = area.textContent + e.target.textContent; 
-    display_value = area.textContent;
+    area.value = area.value + e.target.textContent; 
+    display_value = area.value;
 }
 
 function isDecimal(number){
@@ -53,18 +53,19 @@ function makeButtons(NUMBERS, OPERATORS) {
             case "=": {
                 document.querySelector("#id16").addEventListener("click", (e) => {
                 let area = document.querySelector(".display");
+                display_value = area.value;
                 let regex = new RegExp("([0-9\\.]+)([\\+\\-\\*\\/])([0-9\\.]+)")
                 let values = display_value.match(regex).slice(1); // [a, operator, b]
                 console.log(values);
-                area.textContent = roundDecimals(operate(values[0], values[2], values[1]));
-                display_value = area.textContent;
-            });
+                area.value = roundDecimals(operate(values[0], values[2], values[1]));
+                display_value = area.value;
+                });
             }
             case "CA": {
                 document.querySelector("#id17").addEventListener("click", (e) => {
                     let area = document.querySelector(".display");
-                    area.textContent = "";
-                    display_value = area.textContent;
+                    area.value = "";
+                    display_value = area.value;
                 });
                 break;
             }
@@ -73,18 +74,23 @@ function makeButtons(NUMBERS, OPERATORS) {
                     let area = document.querySelector(".display");
                     let numbers = display_value.split(RegExp("[\\+\\-\\*\\/]"));
                     if (numbers[numbers.length - 1].indexOf(".") === -1) {
-                        area.textContent = area.textContent + e.target.textContent;
-                        display_value = area.textContent;
+                        area.value = area.value + e.target.textContent;
+                        display_value = area.value;
                     }
                 });
                 break;
             }
-        }
-    });
+            case "Back": {
+                document.querySelector("#id18").addEventListener("click", (e) => {
+                    let area = document.querySelector(".display");
+                    area.value = area.value.slice(0, -1);
+                    display_value = area.value;
+                });
+            }
+        }});
 }
 
 makeButtons(NUMBERS, OPERATORS);
-
 
 function add(a, b) {
     return a+b;
@@ -113,5 +119,16 @@ function operate(a, b, operator) {
     }
 }
 
-let a = 0;
-let b = 0;
+// keyboard
+let area = document.querySelector(".display");
+area.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
+        document.querySelector("#id16").click();
+    } else if (e.key === "backspace") {
+        display_value = area.value;
+        console.log(display_value);
+    } else {
+        display_value = area.value;
+        console.log(display_value);
+    }
+});
